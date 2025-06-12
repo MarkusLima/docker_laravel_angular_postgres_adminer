@@ -2,6 +2,7 @@ FROM php:8.2-fpm
 
 # Instala libs e extensões comuns para Laravel 8
 RUN apt-get update && apt-get install -y \
+    libsqlite3-dev \
     iproute2 \
     libpq-dev \
     libzip-dev \
@@ -46,17 +47,12 @@ COPY . .
 # Instalar dependências PHP com composer
 RUN composer install --ignore-platform-reqs --no-scripts --no-autoloader --no-progress --no-interaction
 
-# Ajustar permissões - importante para Laravel
-# RUN chown -R www-data:www-data /var/www/html/.env /var/www/html/storage /var/www/html/bootstrap/cache \
-#     && chmod 664 /var/www/html/.env \
-#     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+#RUN php artisan key:generate
 
-RUN php artisan key:generate
-
-RUN php artisan config:clear
-RUN php artisan cache:clear
-RUN php artisan route:clear
-RUN php artisan view:clear
+# RUN php artisan config:clear
+# RUN php artisan cache:clear
+# RUN php artisan route:clear
+# RUN php artisan view:clear
 
 EXPOSE 9000 9003
 
