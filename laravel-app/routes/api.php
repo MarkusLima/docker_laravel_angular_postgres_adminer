@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\GitHubController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['log.http'])->group(function () {
+    Route::get('/user/{userName}', [GitHubController::class, 'getUser']);
+    Route::get('/following/{userName}', [GitHubController::class, 'getFollowing']);
 });
+
+Route::get('/logs', [GitHubController::class, 'getLogs']);
