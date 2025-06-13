@@ -1,0 +1,58 @@
+# .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout do repositório
+        uses: actions/checkout@v3
+
+      # PHP + Composer
+      - name: ⚙️ Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+          extensions: sqlite, pdo_sqlite
+          tools: composer
+
+      - name: 🧰 Instalar dependências Laravel
+        run: |
+          cd laravel-app
+          composer install --ignore-platform-reqs  --prefer-dist --no-progress
+          cp .env.example .env
+          php artisan key:generate
+          php artisan config:clear
+        env:
+          APP_ENV: testing
+
+      - name: ✅ Rodar testes Laravel (SQLite in-memory)
+        run: |
+          cd laravel-app
+          php artisan test
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: ":memory:"
+
+      # Node + Angular
+      - name: 🧰 Instalar dependências Angular
+        run: |
+          cd angular-app
+          npm ci
+
+      - name: ✅ Rodar ESLint Angular
+        run: |
+          cd angular-app
+          npm run lint
+
+      - name: 🏗️ Build Angular
+        run: |
+          cd angular-app
+          npm run build
