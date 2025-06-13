@@ -1,9 +1,8 @@
 export interface LogItem {
   id: number;
   method: string;
-  path: string;
-  status: number;
-  ip: string;
+  url: string;
+  status_code: string;
   created_at: string;
 }
 
