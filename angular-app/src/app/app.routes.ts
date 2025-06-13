@@ -7,7 +7,7 @@ import { ShowLog } from './modules/log/show';
 export const routes: Routes = [
   { path: 'user', component: IndexUser },
   { path: 'user/:userName', component: IndexUser, data: { renderMode: 'client' } },
-  { path: 'following/:userName', component: IndexFollowing },
+  { path: 'following/:userName', component: IndexFollowing, data: { renderMode: 'client' } },
   { path: 'log', component: IndexLog },
   { path: 'log/:id', component: ShowLog, data: { renderMode: 'client' } },
   { path: '', redirectTo: 'user', pathMatch: 'full' },
