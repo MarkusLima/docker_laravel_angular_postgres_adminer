@@ -9,7 +9,6 @@ use App\Services\LogsService;
 use App\Http\Requests\NameRequest;
 use App\Http\Requests\UserQueryRequest;
 use App\Http\Requests\GetLogsRequest;
-use App\Models\LogRequest;
 
 
 class GitHubController extends Controller
