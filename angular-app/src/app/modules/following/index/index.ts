@@ -11,7 +11,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './index.css',
 })
 export class IndexFollowing implements OnInit {
-  following: FollowingResponse | null = null;
+  following: FollowingResponse = {
+    itens: [],
+    page: 1,
+    total_pages: 1,
+    has_next_page: false,
+    has_previous_page: false,
+    total: 0,
+    per_page: 6,
+    next_page: 0,
+    previous_page: 0,
+  };
   errorFollowing = '';
   userName = '';
   perPage = 6;
