@@ -21,3 +21,4 @@ Route::middleware(['log.http'])->group(function () {
 });
 
 Route::get('/logs', [GitHubController::class, 'getLogs']);
+Route::get('/logs/{id}', [GitHubController::class, 'getLogById']);

@@ -92,5 +92,16 @@ class GitHubController extends Controller
         }
 
     }
+
+    public function getLogById(int $id)
+    {
+        try {
+            $log = $this->logsService->getLogById($id);
+            if (!$log) return response()->json(['error' => 'Log not found.'], 404);
+            return response()->json($log);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => $th->getMessage()], 400);
+        }
+    }
 }
 

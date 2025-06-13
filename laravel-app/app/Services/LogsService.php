@@ -33,7 +33,21 @@ class LogsService
         } catch (Exception $e) {
             throw new Exception("Erro ao consultar os logs: " . $e->getMessage());
         } catch (Exception $e) {
-            throw new Exception("Erro inesperado ao consultar o GitHub: " . $e->getMessage());
+            throw new Exception("Erro inesperado ao consultar logs: " . $e->getMessage());
+        }
+    }
+
+    public function getLogById(int $id)
+    {
+        try {
+            
+            $log = LogRequest::find($id);
+            return $log;
+
+        } catch (Exception $e) {
+            throw new Exception("Erro ao consultar os logs: " . $e->getMessage());
+        } catch (Exception $e) {
+            throw new Exception("Erro inesperado ao consultar log: " . $e->getMessage());
         }
     }
 
