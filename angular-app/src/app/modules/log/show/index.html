@@ -1,49 +1,47 @@
-  <div class="container mt-4">
-    <button class="btn btn-outline-success mb-3" [routerLink]="['/log']">Ir para o Log</button>
-    <div class="card">
-      <div class="card-body">
-        <h2>Log do sistema</h2>
-        <div *ngIf="errorLog" class="alert alert-danger">{{ errorLog }}</div>
-        <div *ngIf="log">
-            <h2>Detalhes do Log</h2>
-            <p><strong>ID:</strong> {{ log.id }}</p>
-            <p><strong>Método:</strong> {{ log.method }}</p>
-            <p><strong>URL:</strong> {{ log.url }}</p>
-            <p><strong>Status:</strong> {{ log.status_code }}</p>
-            <p><strong>Data:</strong> {{ log.created_at | date:'short' }}</p>
+<div class="container mt-4">
+  <button class="btn btn-outline-success mb-3" [routerLink]="['/log']">Ir para o Log</button>
+  <div class="card">
+    <div class="card-body">
+      <h2>Log do sistema</h2>
+      <div *ngIf="errorLog" class="alert alert-danger">{{ errorLog }}</div>
+      <div *ngIf="log">
+        <h2>Detalhes do Log</h2>
+        <p><strong>ID:</strong> {{ log.id }}</p>
+        <p><strong>Método:</strong> {{ log.method }}</p>
+        <p><strong>URL:</strong> {{ log.url }}</p>
+        <p><strong>Status:</strong> {{ log.status_code }}</p>
+        <p><strong>Data:</strong> {{ log.created_at | date:'short' }}</p>
 
-            <h3>Headers</h3>
+        <h3>Headers</h3>
+        <ul>
+          <li *ngFor="let key of getKeys(log.headers)">
+            <strong>{{ key }}:</strong> {{ log.headers[key].join(', ') }}
+          </li>
+        </ul>
+
+        <h3>Body</h3>
+        <ul>
+          <li *ngFor="let key of getKeys(log.body)">
+            <strong>{{ key }}:</strong> {{ log.body[key] }}
+          </li>
+        </ul>
+
+        <h3>Itens</h3>
+        <div *ngIf="log.response_body?.itens?.length">
+          <div *ngFor="let item of log.response_body.itens" class="user-card">
             <ul>
-                <li *ngFor="let key of getKeys(log.headers)">
-                <strong>{{ key }}:</strong> {{ log.headers[key].join(', ') }}
-                </li>
+              <li *ngFor="let key of getKeys(item)">
+                <strong>{{ key }}:</strong>
+                <span *ngIf="isUrl(item[key])">
+                  <a [href]="item[key]" target="_blank">{{ item[key] }}</a>
+                </span>
+                <span *ngIf="!isUrl(item[key])"> {{ item[key] }} </span>
+              </li>
             </ul>
-
-            <h3>Body</h3>
-            <ul>
-                <li *ngFor="let key of getKeys(log.body)">
-                <strong>{{ key }}:</strong> {{ log.body[key] }}
-                </li>
-            </ul>
-
-            <h3>Itens</h3>
-            <div *ngIf="log.response_body?.itens?.length">
-                <div *ngFor="let item of log.response_body.itens" class="user-card">
-                <ul>
-                    <li *ngFor="let key of getKeys(item)">
-                    <strong>{{ key }}:</strong> 
-                    <span *ngIf="isUrl(item[key])">
-                        <a [href]="item[key]" target="_blank">{{ item[key] }}</a>
-                    </span>
-                    <span *ngIf="!isUrl(item[key])">
-                        {{ item[key] }}
-                    </span>
-                    </li>
-                </ul>
-                <hr>
-                </div>
-            </div>
+            <hr />
+          </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

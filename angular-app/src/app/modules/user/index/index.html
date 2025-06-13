@@ -28,19 +28,19 @@
               <a *ngIf="u.blog" [href]="u.blog" target="_blank">{{ u.blog }}</a>
             </p>
             <p>
-              <strong>Repositórios:</strong> {{ u.public_repos }} |
-              <strong>Gists:</strong> {{ u.public_gists }}
+              <strong>Repositórios:</strong> {{ u.public_repos }} | <strong>Gists:</strong> {{
+              u.public_gists }}
             </p>
             <p>
-              <strong>Seguidores:</strong> {{ u.followers }} |
-              <strong>Seguindo:</strong> {{ u.following }}
+              <strong>Seguidores:</strong> {{ u.followers }} | <strong>Seguindo:</strong> {{
+              u.following }}
             </p>
-            <p>
-              <strong>Conta criada:</strong> {{ u.created_at }}
-            </p>
+            <p><strong>Conta criada:</strong> {{ u.created_at }}</p>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-outline-success mb-2" [routerLink]="['/following/'+u.login]">Buscar Following</button>
+            <button class="btn btn-outline-success mb-2" [routerLink]="['/following/'+u.login]">
+              Buscar Following
+            </button>
           </div>
         </div>
       </div>

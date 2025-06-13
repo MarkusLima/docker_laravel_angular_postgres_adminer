@@ -3,6 +3,7 @@ export interface FollowingItem {
   id: number;
   avatar_url: string;
   html_url: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any; // Permite outros campos extras
 }
 

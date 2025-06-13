@@ -1,32 +1,26 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, NgZone, OnInit } from '@angular/core';
 import { GitHubService } from '../../../../service/github.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../../interfaces/user';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'user-index',
+  selector: 'app-user-index',
   standalone: true,
-  imports: [
-    RouterModule, FormsModule, CommonModule
-  ],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './index.html',
-  styleUrls: ['./index.css']
+  styleUrls: ['./index.css'],
 })
-export class IndexUser {
-  
+export class IndexUser implements OnInit {
   userName = 'markuslima';
   user: User | null = null;
   errorUser = '';
 
-  constructor(
-    private gitHubService: GitHubService, 
-    private zone: NgZone, 
-    private cdr: ChangeDetectorRef,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  private gitHubService = inject(GitHubService);
+  private zone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
+  private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
     const userName = this.route.snapshot.paramMap.get('userName');
@@ -47,11 +41,14 @@ export class IndexUser {
       },
       error: err => {
         this.zone.run(() => {
-          this.errorUser = err?.error?.error || err?.error?.message || err.message || 'Erro desconhecido ao buscar dados.';
+          this.errorUser =
+            err?.error?.error ||
+            err?.error?.message ||
+            err.message ||
+            'Erro desconhecido ao buscar dados.';
           this.cdr.detectChanges();
         });
-      }
+      },
     });
   }
-  
 }

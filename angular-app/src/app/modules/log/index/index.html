@@ -1,14 +1,14 @@
-  <div class="container mt-4">
-    <button class="btn btn-outline-success mb-3" [routerLink]="['/user']">Ir para o INICIO</button>
-    <div class="card">
-      <div class="card-body">
-        <h2>Logs do sistema</h2>
-        <div class="input-group mb-3">
-          <input class="form-control" [(ngModel)]="searchTerm" placeholder="Buscar logs por termo" />
-          <button class="btn btn-primary" (click)="fetchLogs()">Buscar Logs</button>
-        </div>
-        <div *ngIf="errorLogs" class="alert alert-danger">{{ errorLogs }}</div>
-        <div *ngIf="logs">
+<div class="container mt-4">
+  <button class="btn btn-outline-success mb-3" [routerLink]="['/user']">Ir para o INICIO</button>
+  <div class="card">
+    <div class="card-body">
+      <h2>Logs do sistema</h2>
+      <div class="input-group mb-3">
+        <input class="form-control" [(ngModel)]="searchTerm" placeholder="Buscar logs por termo" />
+        <button class="btn btn-primary" (click)="fetchLogs()">Buscar Logs</button>
+      </div>
+      <div *ngIf="errorLogs" class="alert alert-danger">{{ errorLogs }}</div>
+      <div *ngIf="logs">
         <table class="table table-bordered">
           <thead class="table-light">
             <tr>
@@ -27,7 +27,9 @@
               <td>{{ log.url }}</td>
               <td>{{ log.status_code }}</td>
               <td>{{ log.created_at }}</td>
-              <td><button class="btn btn-outline-primary" [routerLink]="['/log/'+log.id]">VER</button></td>
+              <td>
+                <button class="btn btn-outline-primary" [routerLink]="['/log/'+log.id]">VER</button>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -45,7 +47,7 @@
             </li>
           </ul>
         </nav>
-        </div>
       </div>
     </div>
+  </div>
 </div>

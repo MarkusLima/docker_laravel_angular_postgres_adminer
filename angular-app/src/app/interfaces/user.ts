@@ -16,5 +16,5 @@ export interface User {
   public_gists: number;
   public_repos: number;
   twitter_username: string | null;
-  updated_at: string
+  updated_at: string;
 }

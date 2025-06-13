@@ -1,17 +1,17 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../app/interfaces/user';
 import { FollowingResponse } from '../app/interfaces/following-response';
 import { LogResponse } from '../app/interfaces/log-response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GitHubService {
   private apiUrl = 'http://localhost/api'; // Ajuste para sua URL da API
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getUser(userName: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/user/${userName}`);
@@ -34,7 +34,8 @@ export class GitHubService {
     return this.http.get<LogResponse>(`${this.apiUrl}/logs`, { params });
   }
 
-   getLog(id?: string): Observable<any> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getLog(id?: string): Observable<any> {
     return this.http.get<LogResponse>(`${this.apiUrl}/logs/${id}`);
   }
 }

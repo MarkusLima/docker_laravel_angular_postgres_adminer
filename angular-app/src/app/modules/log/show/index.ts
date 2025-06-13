@@ -1,54 +1,56 @@
-import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, NgZone, OnInit } from '@angular/core';
 import { GitHubService } from '../../../../service/github.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'log-show',
+  selector: 'app-log-show',
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './index.html',
-  styleUrl: './index.css'
+  styleUrl: './index.css',
 })
-export class ShowLog {
+export class ShowLog implements OnInit {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  log: any = null;
+  errorLog = '';
 
-    log: any = null;
-    errorLog = '';
-  
-    constructor(
-      private gitHubService: GitHubService, 
-      private zone: NgZone, 
-      private cdr: ChangeDetectorRef,
-      private router: Router,
-      private route: ActivatedRoute
-    ) {}
-  
-    ngOnInit(): void {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        this.fetchLog(id);
-      }
-    }
+  private gitHubService = inject(GitHubService);
+  private zone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
+  private route = inject(ActivatedRoute);
 
-    fetchLog(id: string) {
-      this.errorLog = '';
-      this.gitHubService.getLog(id).subscribe({
-        next: data => {
-          this.zone.run(() => {
-            this.log = data;
-            this.cdr.detectChanges();
-          });
-        },
-        error: err => err?.error?.error || err?.error?.message || err.message || 'Erro desconhecido ao buscar dados.'
-      });
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.fetchLog(id);
     }
+  }
 
-    getKeys(obj: any): string[] {
-      return obj ? Object.keys(obj) : [];
-    }
+  fetchLog(id: string) {
+    this.errorLog = '';
+    this.gitHubService.getLog(id).subscribe({
+      next: data => {
+        this.zone.run(() => {
+          this.log = data;
+          this.cdr.detectChanges();
+        });
+      },
+      error: err =>
+        err?.error?.error ||
+        err?.error?.message ||
+        err.message ||
+        'Erro desconhecido ao buscar dados.',
+    });
+  }
 
-    isUrl(value: any): boolean {
-      return typeof value === 'string' && value.startsWith('http');
-    }
-    
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  getKeys(obj: any): string[] {
+    return obj ? Object.keys(obj) : [];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  isUrl(value: any): boolean {
+    return typeof value === 'string' && value.startsWith('http');
+  }
 }
