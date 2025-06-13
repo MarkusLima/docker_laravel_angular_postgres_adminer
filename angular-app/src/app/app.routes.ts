@@ -6,10 +6,10 @@ import { ShowLog } from './modules/log/show';
 
 export const routes: Routes = [
   { path: 'user', component: IndexUser },
-  { path: 'user/:userName', component: IndexUser },
+  { path: 'user/:userName', component: IndexUser, data: { renderMode: 'client' }},
   { path: 'following/:userName', component: IndexFollowing },
   { path: 'log', component: IndexLog },
-  { path: 'log/:id', component: ShowLog },
+  { path: 'log/:id', component: ShowLog,data: { renderMode: 'client' } },
   { path: '', redirectTo: 'user', pathMatch: 'full' },
   { path: '**', redirectTo: 'user' },
 ];
