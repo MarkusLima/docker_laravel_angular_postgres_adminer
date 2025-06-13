@@ -1,1 +1,51 @@
-<p>index works!!</p>
+  <div class="container mt-4">
+    <button class="btn btn-outline-success mb-3" [routerLink]="['/user']">Ir para o INICIO</button>
+    <div class="card">
+      <div class="card-body">
+        <h2>Logs do sistema</h2>
+        <div class="input-group mb-3">
+          <input class="form-control" [(ngModel)]="searchTerm" placeholder="Buscar logs por termo" />
+          <button class="btn btn-primary" (click)="fetchLogs()">Buscar Logs</button>
+        </div>
+        <div *ngIf="errorLogs" class="alert alert-danger">{{ errorLogs }}</div>
+        <div *ngIf="logs">
+        <table class="table table-bordered">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Método</th>
+              <th>Url</th>
+              <th>Status</th>
+              <th>Data</th>
+              <th>Detalhes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let log of logs.itens">
+              <td>{{ log.id }}</td>
+              <td>{{ log.method }}</td>
+              <td>{{ log.url }}</td>
+              <td>{{ log.status_code }}</td>
+              <td>{{ log.created_at }}</td>
+              <td><button class="btn btn-outline-primary" [routerLink]="['/log/'+log.id]">VER</button></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <nav class="mt-3">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="!logs.has_previous_page">
+              <button class="page-link" (click)="changeLogsPage(-1)">Anterior</button>
+            </li>
+            <li class="page-item">
+              <span class="page-link">{{ logs.page }} / {{ logs.total_pages }}</span>
+            </li>
+            <li class="page-item" [class.disabled]="!logs.has_next_page">
+              <button class="page-link" (click)="changeLogsPage(1)">Próxima</button>
+            </li>
+          </ul>
+        </nav>
+        </div>
+      </div>
+    </div>
+</div>
