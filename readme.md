@@ -123,3 +123,12 @@ php artisan test
 docker exec -it angular sh
 ng lint
 ```
+
+
+## 📄 Licença
+Este projeto está licenciado sob a licença [MIT](LICENSE).
+
+---
+
+## ❓ Dúvidas ou Sugestões
+Caso tenha alguma dúvida na execução do projeto, por favor, abra uma [issue](https://github.com/MarkusLima/docker_laravel_angular_postgres_adminer/issues) ou envie um e-mail(markuamk@gmail.com) para que possamos melhorar o projeto.
