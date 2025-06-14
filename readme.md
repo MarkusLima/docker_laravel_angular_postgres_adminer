@@ -112,22 +112,6 @@ docker exec -it laravel sh
 php artisan migrate
 ```
 
-### Comandos úteis(Caso ocorra algum erro)
-- Entra no docker angular 
-```bash
-docker exec -it angular sh
-```
-
-- Entra no docker laravel 
-```bash
-docker exec -it laravel sh
-```
-
-- Entra no docker postgres  
-```bash
-docker exec -it postgres sh
-```
-
 ### Para rodar os testes no laravel
 ```bash
 docker exec -it laravel sh
