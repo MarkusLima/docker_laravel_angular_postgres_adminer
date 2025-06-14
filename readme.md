@@ -70,11 +70,12 @@ cd docker_laravel_angular_postgres_adminer
 ## Estrutura organizacional do projeto
 
 docker_laravel_angular_postgres_adminer/
-├── laravel-app/       # Código-fonte Laravel
-├── angular-app/       # Código-fonte Angular
-├── nginx/             # Configurações do Nginx
-├── docker-compose.yml # Executor docker
-├── docs               # Documentos do projeto
+
+├── laravel-app/       # Código-fonte Laravel<br/>
+├── angular-app/       # Código-fonte Angular<br/>
+├── nginx/             # Configurações do Nginx<br/>
+├── docker-compose.yml # Executor docker<br/>
+├── docs               # Documentos do projeto<br/>
 
 ### 3. Execute para instanciar o container
 ```bash 
@@ -123,6 +124,54 @@ php artisan test
 docker exec -it angular sh
 ng lint
 ```
+
+### 🔄 Integração Contínua (CI) com GitHub Actions
+Este repositório utiliza um workflow de Integração Contínua (CI) via GitHub Actions, localizado em .github/workflows/ci.yml. Ele é executado automaticamente nos seguintes eventos:
+
+Push na branch master
+
+Pull Request direcionado à branch master
+
+✅ O que este workflow faz:
+Faz checkout do repositório
+
+Clona o código da branch para o ambiente de execução.
+
+Configura o ambiente PHP
+
+Instala o PHP 8.2 com as extensões sqlite e pdo_sqlite.
+
+Instala o Composer.
+
+Instala e configura o Laravel
+
+Acessa a pasta laravel-app.
+
+Instala as dependências do Laravel.
+
+Copia o arquivo .env.example para .env.
+
+Gera a chave da aplicação e limpa o cache de configuração.
+
+Executa os testes do Laravel
+
+Roda os testes automatizados com SQLite em memória, ideal para ambientes de CI rápidos e isolados.
+
+Instala dependências do Angular
+
+Acessa a pasta angular-app.
+
+Instala os pacotes com npm ci (modo mais rápido e estável para CI).
+
+Executa análise de código com ESLint
+
+Roda o linter do Angular para garantir padrões de código.
+
+Build da aplicação Angular
+
+Gera a build de produção da aplicação Angular.
+
+Este processo garante que ambas as aplicações (Laravel e Angular) estejam corretamente instaladas, testadas e construídas antes de qualquer mudança ser aceita na branch master.
 
 
 ## 📄 Licença
